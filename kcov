@@ -1,0 +1,7 @@
+#!/bin/bash
+
+DIR=$PWD/../interledger.rs/interledger-rs/
+echo $DIR
+echo $@
+docker run -it --rm --security-opt seccomp=unconfined --volume $DIR:/volume --workdir /volume kcov-tool "kcov $@"
+#--exclude-pattern=/.cargo,/usr/lib,/src/main.rs,src/server.rs
