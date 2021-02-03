@@ -14,4 +14,6 @@ BIN_PATH="/ilp/interledger-rs/target/debug/ilp-node"
 BIN_PATH="/ilp/interledger-rs/target/debug/ilp-cli"
 ```
 
-You'll have to modify the Dockerfile or come up with a better way to import binaries. You need to build the binaries on a _Debian_ machine.
+If you want to test other binaries, you'll have to modify the Dockerfile or come up with a better way to import binaries. You need to build the binaries on a _Debian_ machine.
+
+A multi-stage build may be useful in this regard.
