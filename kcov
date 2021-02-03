@@ -1,7 +1,16 @@
 #!/bin/bash
 
-DIR=$PWD/../interledger.rs/interledger-rs/
+# DIR=$PWD/../interledger.rs/interledger-rs
+DIR=$PWD
 echo $DIR
 echo $@
-docker run -it --rm --security-opt seccomp=unconfined --volume $DIR:/volume --workdir /volume kcov-tool "kcov $@"
+ilp_node_args="--admin_auth_token hi_brock --secret_seed 8852500887504328225458511465394229327394647958135038836332350604"
+
+ARGS="--debug 15"
+REPORTS_DIR="./kcov-reports"
+BIN_PATH="/ilp/interledger-rs/target/debug/ilp-node"
+BIN_ARGS="--help"
+COMMAND="$ARGS $REPORTS_DIR $BIN_PATH $BIN_ARGS"
+# COMMAND="--uncommon-options"
+docker run -it --rm --security-opt seccomp=unconfined --volume $DIR:/volume --workdir /volume kcov-tool "kcov $COMMAND"
 #--exclude-pattern=/.cargo,/usr/lib,/src/main.rs,src/server.rs

@@ -10,6 +10,7 @@ RUN apt-get update \
   python3.4 \
   libpython3.4-dev \
   python3 \
+  git \
   && rm -rf /var/lib/apt/lists/*
 
 ENV RUSTUP_HOME=/usr/local/rustup
@@ -23,6 +24,13 @@ RUN curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain ${RUST_VERS
 RUN cargo install cargo-kcov
 
 ENV CARGO_HOME=${HOME}/.cargo
+
+# download ILP source
+WORKDIR /ilp
+RUN git clone https://github.com/interledger-rs/interledger-rs.git
+RUN cd interledger-rs && cargo build
+
+WORKDIR ${HOME}
 
 ENTRYPOINT ["/bin/sh", "-c"]
 CMD ["cargo-kcov"]
